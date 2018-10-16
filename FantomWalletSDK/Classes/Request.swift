@@ -25,8 +25,8 @@ class Request {
         request.setValue("", forHTTPHeaderField: "X-Cookie")
         
         if FantomWallet.shared.getAcceseToken().count > 0 {
-            let token = FantomWallet.shared.getAcceseToken()
-            request.setValue(token, forHTTPHeaderField: "authorization")
+//            let token = FantomWallet.shared.getAcceseToken()
+//            request.setValue(token, forHTTPHeaderField: "authorization")
         }
         
         let paramData = parameter.data(using: .utf8)
