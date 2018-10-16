@@ -29,7 +29,7 @@ public class FantomWallet: NSObject {
         
 //        let bundle = Bundle(for: type(of: self))
 //        let path = bundle.path(forResource: "Fantom", ofType: "plist")
-//        
+//
 //        if  let myDict = NSDictionary(contentsOfFile: path!) {
 //            domain = myDict["FantomWalletDomain"] as! String
 //        }

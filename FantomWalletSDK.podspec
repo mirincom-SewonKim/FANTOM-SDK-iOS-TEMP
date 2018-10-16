@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FantomWalletSDK'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'A short description of FantomWalletSDK.'
 
 # This description is used to generate tags and improve search results.
@@ -32,9 +32,9 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'FantomWalletSDK/Classes/**/*'
   
-  s.resource_bundles = {
-      'FantomWalletSDK' => ['FantomWalletSDK/Assets/**/*']
-  }
+  # s.resource_bundles = {
+  #     'FantomWalletSDK' => ['FantomWalletSDK/Assets/**/*']
+  # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
