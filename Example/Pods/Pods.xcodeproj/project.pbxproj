@@ -15,6 +15,7 @@
 		5353D01021758A3900F1BA17 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353D00C21758A3900F1BA17 /* Request.swift */; };
 		5353D01121758A3900F1BA17 /* FantomWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353D00D21758A3900F1BA17 /* FantomWallet.swift */; };
 		5353D01221758A3900F1BA17 /* FantomExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353D00E21758A3900F1BA17 /* FantomExtention.swift */; };
+		5353D0182175B01500F1BA17 /* Fantom.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5353D0172175B01500F1BA17 /* Fantom.plist */; };
 		86E59D435B578CDFC655DB2E1F1D05FE /* Pods-FantomWalletSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7910BA53BF019B0D71692F2B1792BD08 /* Pods-FantomWalletSDK_Tests-dummy.m */; };
 		AF164AAB835561AD1F5D9B01F06CDDFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		B525A758BCBA56537FA2549F5E49B80C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
@@ -50,6 +51,7 @@
 		5353D00C21758A3900F1BA17 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = FantomWalletSDK/Classes/Request.swift; sourceTree = "<group>"; };
 		5353D00D21758A3900F1BA17 /* FantomWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FantomWallet.swift; path = FantomWalletSDK/Classes/FantomWallet.swift; sourceTree = "<group>"; };
 		5353D00E21758A3900F1BA17 /* FantomExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FantomExtention.swift; path = FantomWalletSDK/Classes/FantomExtention.swift; sourceTree = "<group>"; };
+		5353D0172175B01500F1BA17 /* Fantom.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Fantom.plist; path = FantomWalletSDK/Assets/Fantom.plist; sourceTree = "<group>"; };
 		55B1EB64E4684331F42A6E1144EF53AB /* Pods-FantomWalletSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FantomWalletSDK_Example-dummy.m"; sourceTree = "<group>"; };
 		56AB3FADF92C392B10A05F3C6F489361 /* Pods-FantomWalletSDK_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FantomWalletSDK_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		5767AA5EC62B5EA36150B6A9FCFA01A3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				5353D00C21758A3900F1BA17 /* Request.swift */,
 				2DF3B2898E6CC5FB06930079A88E3EF6 /* Pod */,
 				A855D0797B9602979CF3D2AF06089FC0 /* Support Files */,
+				5353D0172175B01500F1BA17 /* Fantom.plist */,
 			);
 			name = FantomWalletSDK;
 			path = ../..;
@@ -374,6 +377,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5353D0182175B01500F1BA17 /* Fantom.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
