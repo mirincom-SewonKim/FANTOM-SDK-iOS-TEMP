@@ -1,0 +1,16 @@
+PODS:
+  - FantomWalletSDK (0.1.0)
+
+DEPENDENCIES:
+  - FantomWalletSDK (from `../`)
+
+EXTERNAL SOURCES:
+  FantomWalletSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FantomWalletSDK: 4ac62fb1bf173513ef315d7fc380c8d09a27d249
+
+PODFILE CHECKSUM: 5cf333e328d828608560f56f5ea3f3fd6def3fbb
+
+COCOAPODS: 1.5.3

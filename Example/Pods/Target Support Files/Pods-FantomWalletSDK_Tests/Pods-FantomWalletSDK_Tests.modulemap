@@ -1,0 +1,6 @@
+framework module Pods_FantomWalletSDK_Tests {
+  umbrella header "Pods-FantomWalletSDK_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

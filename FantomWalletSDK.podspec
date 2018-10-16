@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/skaehdus/FantomWalletSDK'
+  s.homepage         = 'https://github.com/mirincom-SewonKim/FANTOM-SDK-iOS-TEMP'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'skaehdus' => 'topgun5512@mirincom.co.kr' }
-  s.source           = { :git => 'https://github.com/skaehdus/FantomWalletSDK.git', :tag => s.version.to_s }
+  s.author           = { 'mirincom-SewonKim' => 'topgun5512@mirincom.co.kr' }
+  s.source           = { :git => 'https://github.com/mirincom-SewonKim/FANTOM-SDK-iOS-TEMP.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'

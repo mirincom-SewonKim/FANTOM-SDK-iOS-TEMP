@@ -1,0 +1,6 @@
+framework module FantomWalletSDK {
+  umbrella header "FantomWalletSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,6 +1,6 @@
 # FantomWalletSDK
 
-[![CI Status](https://img.shields.io/travis/skaehdus/FantomWalletSDK.svg?style=flat)](https://travis-ci.org/skaehdus/FantomWalletSDK)
+[![CI Status](https://img.shields.io/travis/mirincom-SewonKim/FantomWalletSDK.svg?style=flat)](https://travis-ci.org/skaehdus/FantomWalletSDK)
 [![Version](https://img.shields.io/cocoapods/v/FantomWalletSDK.svg?style=flat)](https://cocoapods.org/pods/FantomWalletSDK)
 [![License](https://img.shields.io/cocoapods/l/FantomWalletSDK.svg?style=flat)](https://cocoapods.org/pods/FantomWalletSDK)
 [![Platform](https://img.shields.io/cocoapods/p/FantomWalletSDK.svg?style=flat)](https://cocoapods.org/pods/FantomWalletSDK)
