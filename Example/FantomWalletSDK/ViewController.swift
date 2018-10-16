@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
         idTextField.layer.borderWidth = 1.0
         idTextField.font = UIFont.systemFont(ofSize: 16)
         idTextField.placeholder = "Client ID"
-        idTextField.text = "client01"
+        idTextField.text = "fantom"
         self.view.addSubview(idTextField)
         
         pwTextField = UITextField(frame: CGRect(x: 10, y: 118, width: 280, height: 30))
@@ -84,7 +84,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
         pwTextField.layer.borderWidth = 1.0
         pwTextField.font = UIFont.systemFont(ofSize: 16)
         pwTextField.placeholder = "Client Password"
-        pwTextField.text = "asldkjfoiwefnonsdcf"
+        pwTextField.text = "fantom"
         self.view.addSubview(pwTextField)
         
         let authButton = UIButton(frame: CGRect(x: 10, y: 152, width: 280, height: 30))
@@ -158,7 +158,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
         
         var parameter:Dictionary<String, Any> = Dictionary()
         parameter.add(key: "clientId", value: clientId)
-        parameter.add(key: "clientPw", value: clientSecret)
+        parameter.add(key: "clientSecret", value: clientSecret)
         parameter.add(key: "reqDate", value: getCurrentDate())
         
         FantomWallet.shared.reqApi(interfaceType: .clientAuth, parameter: parameter.jsonString!)
