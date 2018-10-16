@@ -181,7 +181,10 @@ public class FantomDefine: NSObject {
         case rewardCancel
         
     }
-    
+    struct InterfaceDomain {
+        static let domain:String = "mirincom.dyndns.org:51900"
+    }
+        
     struct InterfaceUrn {
         static let fantom_api_0001:String = "/wallet/api/1.0/clientAuth"
         static let fantom_api_0002:String = "/wallet/api/1.0/franchiseList"

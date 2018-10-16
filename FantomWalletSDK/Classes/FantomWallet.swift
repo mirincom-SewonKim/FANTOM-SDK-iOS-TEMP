@@ -25,14 +25,14 @@ public class FantomWallet: NSObject {
     
     private func domain() -> String {
         
-        var domain = String()
+        let domain = FantomDefine.InterfaceDomain.domain
         
-        let bundle = Bundle(for: type(of: self))
-        let path = bundle.path(forResource: "Fantom", ofType: "plist")
-        
-        if  let myDict = NSDictionary(contentsOfFile: path!) {
-            domain = myDict["FantomWalletDomain"] as! String
-        }
+//        let bundle = Bundle(for: type(of: self))
+//        let path = bundle.path(forResource: "Fantom", ofType: "plist")
+//        
+//        if  let myDict = NSDictionary(contentsOfFile: path!) {
+//            domain = myDict["FantomWalletDomain"] as! String
+//        }
         
         if _isHttps {
             return "https://"+domain
