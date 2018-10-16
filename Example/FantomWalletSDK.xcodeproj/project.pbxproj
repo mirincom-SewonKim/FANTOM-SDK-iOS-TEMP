@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5353D01421758ADA00F1BA17 /* SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5353D01321758ADA00F1BA17 /* SubViews.swift */; };
+		5353D0162175A3C500F1BA17 /* FantomWalletSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5353D0152175A3C500F1BA17 /* FantomWalletSDK.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		0C07F7539E1F620943A8B3DC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		5353D01321758ADA00F1BA17 /* SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViews.swift; sourceTree = "<group>"; };
+		5353D0152175A3C500F1BA17 /* FantomWalletSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FantomWalletSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* FantomWalletSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantomWalletSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5353D0162175A3C500F1BA17 /* FantomWalletSDK.framework in Frameworks */,
 				6E9BBFD84EB52391C47380E9 /* Pods_FantomWalletSDK_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +77,7 @@
 		3C349F6BF56588B07CC6A9A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5353D0152175A3C500F1BA17 /* FantomWalletSDK.framework */,
 				FC18E474F5D8F924FB096F2B /* Pods_FantomWalletSDK_Example.framework */,
 				D9F7B6473F30ECBF66C2673E /* Pods_FantomWalletSDK_Tests.framework */,
 			);
@@ -489,6 +493,7 @@
 			baseConfigurationReference = ED80D0FECE3DD33842A7A7BC /* Pods-FantomWalletSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FantomWalletSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -503,6 +508,7 @@
 			baseConfigurationReference = E6D1D331BC60683ADAD3BF8D /* Pods-FantomWalletSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FantomWalletSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -516,10 +522,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7078097ECE5CD676EE1EA630 /* Pods-FantomWalletSDK_Tests.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -537,10 +540,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F1F5ECEBA338BAA8E4949080 /* Pods-FantomWalletSDK_Tests.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
