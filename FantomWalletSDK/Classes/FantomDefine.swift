@@ -180,9 +180,78 @@ public class FantomDefine: NSObject {
          */
         case rewardCancel
         
+        /**
+         * userLogin
+         * interface ID : IF-FTM_WL-015
+         * user login interface
+         * @param userId(mandatory) : user id
+         * @param userPw(mandatory) : user password
+         * @param reqDate(mandatory) : current Date ex)yyyy-MM-dd hh:mm:ss
+         */
+        case userLogin
+        
+        /**
+         * userHolding
+         * interface ID : IF-FTM_WL-016
+         * holding coin interface
+         * @param loginAuthKey(mandatory) : login auth key
+         * @param coinType(mandatory) : coin type
+         * @param reqDate(mandatory) : current Date ex)yyyy-MM-dd hh:mm:ss
+         */
+        case userHolding
+        
+        /**
+         * userWalletAddr
+         * interface ID : IF-FTM_WL-017
+         * user wallet address interface
+         * @param loginAuthKey(mandatory) : login auth key
+         * @param coinType(mandatory) : coin type
+         * @param reqDate(mandatory) : current Date ex)yyyy-MM-dd hh:mm:ss
+         */
+        case userWalletAddr
+        
+        /**
+         * coinTransfer
+         * interface ID : IF-FTM_WL-018
+         * coin transfer interface
+         * @param loginAuthKey(mandatory) : login auth key
+         * @param coinType(mandatory) : coin type
+         * @param receiverAddr(mandatory) : receiver address
+         * @param amount(mandatory) : amount
+         * @param fee(mandatory) : fee
+         * @param procSpeedCd(mandatory) : process speed
+         * @param reqDate(mandatory) : current Date ex)yyyy-MM-dd hh:mm:ss
+         */
+        case coinTransfer
+        
+        /**
+         * coinConvert
+         * interface ID : IF-FTM_WL-019
+         * coin convert interface
+         * @param loginAuthKey(mandatory) : login auth key
+         * @param coinType(mandatory) : coin type
+         * @param amount(mandatory) : amount
+         * @param fee(mandatory) : fee
+         * @param convertCoinType : convert coin type
+         * @param procSpeedCd : process speed
+         * @param reqDate(mandatory) : current Date ex)yyyy-MM-dd hh:mm:ss
+         */
+        case coinConvert
+        
+        /**
+         * userTransferHist
+         * interface ID : IF-FTM_WL-020
+         * user transfer history interface
+         * @param loginAuthKey(mandatory) : login auth key
+         * @param pageNum(mandatory) : page number
+         * @param pageCnt(mandatory) : page count
+         * @param coinType(mandatory) : coin type
+         * @param reqDate(mandatory) : current Date ex)yyyy-MM-dd hh:mm:ss
+         */
+        case userTransferHist
     }
     struct InterfaceDomain {
-        static let domain:String = "mirincom.dyndns.org:51900"
+        static let domain:String = "wallet-wtest.fantom.services"
     }
         
     struct InterfaceUrn {
@@ -200,6 +269,12 @@ public class FantomDefine: NSObject {
         static let fantom_api_0012:String = "/wallet/api/1.0/reward"
         static let fantom_api_0013:String = "/wallet/api/1.0/payCancel"
         static let fantom_api_0014:String = "/wallet/api/1.0/rewardCancel"
+        static let fantom_api_0015:String = "/wallet/api/1.0/login"
+        static let fantom_api_0016:String = "/wallet/api/1.0/userHolding"
+        static let fantom_api_0017:String = "/wallet/api/1.0/userWalletAddr"
+        static let fantom_api_0018:String = "/wallet/api/1.0/coinTransfer"
+        static let fantom_api_0019:String = "/wallet/api/1.0/coinConvert"
+        static let fantom_api_0020:String = "/wallet/api/1.0/userTransferHist"
     }
     
     static func logPrint(debug: Any = "", function: String = #function, file: String = #file, line: Int = #line) {

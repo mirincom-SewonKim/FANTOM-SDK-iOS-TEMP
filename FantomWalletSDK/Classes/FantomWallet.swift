@@ -130,6 +130,24 @@ public class FantomWallet: NSObject {
         case .rewardCancel:
             urn = FantomDefine.InterfaceUrn.fantom_api_0014
             break
+        case .userLogin:
+            urn = FantomDefine.InterfaceUrn.fantom_api_0015
+            break
+        case .userHolding:
+            urn = FantomDefine.InterfaceUrn.fantom_api_0016
+            break
+        case .userWalletAddr:
+            urn = FantomDefine.InterfaceUrn.fantom_api_0017
+            break
+        case .coinTransfer:
+            urn = FantomDefine.InterfaceUrn.fantom_api_0018
+            break
+        case .coinConvert:
+            urn = FantomDefine.InterfaceUrn.fantom_api_0019
+            break
+        case .userTransferHist:
+            urn = FantomDefine.InterfaceUrn.fantom_api_0020
+            break
         }
         
         FantomDefine.logPrint(debug: "Call interface: \(interfaceType)")

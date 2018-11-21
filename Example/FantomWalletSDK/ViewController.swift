@@ -35,7 +35,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
                       ["title":"IF-FTM-WL-011"],
                       ["title":"IF-FTM-WL-012"],
                       ["title":"IF-FTM-WL-013"],
-                      ["title":"IF-FTM-WL-014"]]
+                      ["title":"IF-FTM-WL-014"],
+                      ["title":"IF-FTM-WL-015"],
+                      ["title":"IF-FTM-WL-016"],
+                      ["title":"IF-FTM-WL-017"],
+                      ["title":"IF-FTM-WL-018"],
+                      ["title":"IF-FTM-WL-019"],
+                      ["title":"IF-FTM-WL-020"]]
     
     var timer = Timer()
     
@@ -273,6 +279,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
             interfaceView.addSubview(subView)
         case 13:
             let subView = RewardCancelView.init(frame: interfaceView.bounds)
+            interfaceView.addSubview(subView)
+        case 14:
+            let subView = UserLoginView.init(frame: interfaceView.bounds)
+            interfaceView.addSubview(subView)
+        case 15:
+            let subView = UserHoldingView.init(frame: interfaceView.bounds)
+            interfaceView.addSubview(subView)
+        case 16:
+            let subView = UserWalletAddrView.init(frame: interfaceView.bounds)
+            interfaceView.addSubview(subView)
+        case 17:
+            let subView = CoinTransferView.init(frame: interfaceView.bounds)
+            interfaceView.addSubview(subView)
+        case 18:
+            let subView = CoinConvertView.init(frame: interfaceView.bounds)
+            interfaceView.addSubview(subView)
+        case 19:
+            let subView = UserTransferHistView.init(frame: interfaceView.bounds)
             interfaceView.addSubview(subView)
         default: break
         }

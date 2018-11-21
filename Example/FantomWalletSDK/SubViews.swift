@@ -9,6 +9,1208 @@
 import UIKit
 import FantomWalletSDK
 
+class UserTransferHistView : UIView, UITextFieldDelegate {
+    
+    var loginAuthKeyField = UITextField()
+    var pageNumField = UITextField()
+    var pageCntField = UITextField()
+    var coinTypeField = UITextField()
+    var responsView = UITextView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setViews() {
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        self.addSubview(subView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action:#selector(doneAction(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let loginAuthKeyLb = UILabel(frame: CGRect(x:4, y:4, width: 120, height: 30))
+        loginAuthKeyLb.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyLb.text = "loginAuthKey :"
+        subView.addSubview(loginAuthKeyLb)
+        
+        let loginAuthKeyPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        loginAuthKeyField = UITextField(frame: CGRect(x: loginAuthKeyLb.frame.maxX, y: loginAuthKeyLb.frame.minY, width: 120, height: 30))
+        loginAuthKeyField.delegate = self
+        loginAuthKeyField.leftView = loginAuthKeyPadingView
+        loginAuthKeyField.rightView = loginAuthKeyPadingView
+        loginAuthKeyField.leftViewMode = .always
+        loginAuthKeyField.rightViewMode = .always
+        loginAuthKeyField.inputAccessoryView = toolBar
+        loginAuthKeyField.layer.masksToBounds = true
+        loginAuthKeyField.layer.borderColor = UIColor.black.cgColor
+        loginAuthKeyField.layer.borderWidth = 1.0
+        loginAuthKeyField.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyField.placeholder = "Mandatory"
+        subView.addSubview(loginAuthKeyField)
+        
+        let pageNumLb = UILabel(frame: CGRect(x: 4, y: loginAuthKeyLb.frame.maxY+4, width: 120, height: 30))
+        pageNumLb.font = UIFont.systemFont(ofSize: 16)
+        pageNumLb.text = "pageNum :"
+        subView.addSubview(pageNumLb)
+        
+        let pageNumPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        pageNumField = UITextField(frame: CGRect(x: pageNumLb.frame.maxX, y: pageNumLb.frame.minY, width: 120, height: 30))
+        pageNumField.delegate = self
+        pageNumField.leftView = pageNumPadingView
+        pageNumField.rightView = pageNumPadingView
+        pageNumField.leftViewMode = .always
+        pageNumField.rightViewMode = .always
+        pageNumField.inputAccessoryView = toolBar
+        pageNumField.layer.masksToBounds = true
+        pageNumField.layer.borderColor = UIColor.black.cgColor
+        pageNumField.layer.borderWidth = 1.0
+        pageNumField.font = UIFont.systemFont(ofSize: 16)
+        pageNumField.placeholder = "Mandatory"
+        subView.addSubview(pageNumField)
+        
+        let pageCntLb = UILabel(frame: CGRect(x: 4, y: pageNumLb.frame.maxY+4, width: 120, height: 30))
+        pageCntLb.font = UIFont.systemFont(ofSize: 16)
+        pageCntLb.text = "pageCnt :"
+        subView.addSubview(pageCntLb)
+        
+        let pageCntPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        pageCntField = UITextField(frame: CGRect(x: pageCntLb.frame.maxX, y: pageCntLb.frame.minY, width: 120, height: 30))
+        pageCntField.delegate = self
+        pageCntField.leftView = pageCntPadingView
+        pageCntField.rightView = pageCntPadingView
+        pageCntField.leftViewMode = .always
+        pageCntField.rightViewMode = .always
+        pageCntField.inputAccessoryView = toolBar
+        pageCntField.layer.masksToBounds = true
+        pageCntField.layer.borderColor = UIColor.black.cgColor
+        pageCntField.layer.borderWidth = 1.0
+        pageCntField.font = UIFont.systemFont(ofSize: 16)
+        pageCntField.placeholder = "Mandatory"
+        subView.addSubview(pageCntField)
+        
+        let coinTypeLb = UILabel(frame: CGRect(x: 4, y: pageCntLb.frame.maxY+4, width: 120, height: 30))
+        coinTypeLb.font = UIFont.systemFont(ofSize: 16)
+        coinTypeLb.text = "coinType :"
+        subView.addSubview(coinTypeLb)
+        
+        let coinTypePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        coinTypeField = UITextField(frame: CGRect(x: coinTypeLb.frame.maxX, y: coinTypeLb.frame.minY, width: 120, height: 30))
+        coinTypeField.delegate = self
+        coinTypeField.leftView = coinTypePadingView
+        coinTypeField.rightView = coinTypePadingView
+        coinTypeField.leftViewMode = .always
+        coinTypeField.rightViewMode = .always
+        coinTypeField.inputAccessoryView = toolBar
+        coinTypeField.layer.masksToBounds = true
+        coinTypeField.layer.borderColor = UIColor.black.cgColor
+        coinTypeField.layer.borderWidth = 1.0
+        coinTypeField.font = UIFont.systemFont(ofSize: 16)
+        coinTypeField.placeholder = "Mandatory"
+        subView.addSubview(coinTypeField)
+        
+        let requestButton = UIButton(frame: CGRect(x: 10, y: coinTypeLb.frame.maxY+4, width: 200, height: 30))
+        requestButton.backgroundColor = UIColor.blue
+        requestButton.layer.cornerRadius = 10
+        requestButton.layer.borderWidth = 1
+        requestButton.layer.borderColor = UIColor.blue.cgColor
+        requestButton.setTitle("Request ", for: .normal)
+        requestButton.addTarget(self, action: #selector(requestAction), for: .touchUpInside)
+        subView.addSubview(requestButton)
+        
+        let responseLabel = UILabel(frame:CGRect(x: 4, y: requestButton.frame.maxY+6, width: 140, height: 30))
+        responseLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        responseLabel.text = "Response Body"
+        subView.addSubview(responseLabel)
+        
+        responsView = UITextView(frame: CGRect(x: 4, y: responseLabel.frame.maxY+2, width: subView.frame.width-8, height: subView.frame.height-responseLabel.frame.maxY-8))
+        responsView.isEditable = false
+        responsView.layer.masksToBounds = true
+        responsView.layer.cornerRadius = 5
+        responsView.layer.borderWidth = 1
+        responsView.layer.borderColor = UIColor.red.cgColor
+        subView.addSubview(responsView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.endEditing(true)
+        return true
+    }
+    
+    @objc func doneAction(_ sender: Any)  {
+        
+        self.endEditing(true)
+    }
+    
+    @objc public func requestAction () {
+        
+        self.endEditing(true)
+        
+        self.responsView.text = ""
+        
+        var parameter:Dictionary<String, Any> = Dictionary()
+        parameter.add(key: "loginAuthKey", value: loginAuthKeyField.text!)
+        parameter.add(key: "pageNum", value: pageNumField.text!)
+        parameter.add(key: "pageCnt", value: pageCntField.text!)
+        parameter.add(key: "coinType", value: coinTypeField.text!)
+        parameter.add(key: "reqDate", value: getCurrentDate())
+        
+        FantomWallet.shared.reqApi(interfaceType: .userTransferHist, parameter: parameter.jsonString!)
+        { (statusCode, resData, error) in
+            
+            if resData != nil {
+                
+                let dic = Dictionary<String, Any>().jsonToDic(jsonString: resData!)!
+                
+                if statusCode == 200 {
+                    
+                    let rsltTp:String = dic["rsltTp"] as! String
+                    
+                    if rsltTp == "R1000" {
+                        self.responsView.text = dic.description
+                    }
+                    else {
+                        self.responsView.text = dic.description
+                    }
+                }
+                else {
+                    self.responsView.text = dic.description
+                }
+            }
+            else {
+                self.responsView.text = error?.localizedDescription
+            }
+        }
+    }
+    
+    func getCurrentDate() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00")
+        let currentDate = dateFormatter.string(from: Date())
+        return currentDate
+    }
+}
+
+
+class CoinConvertView : UIView, UITextFieldDelegate {
+
+    var loginAuthKeyField = UITextField()
+    var coinTypeField = UITextField()
+    var amountField = UITextField()
+    var feeField = UITextField()
+    var convertCoinTypeField = UITextField()
+    var procSpeedCdField = UITextField()
+    var responsView = UITextView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setViews() {
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        self.addSubview(subView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action:#selector(doneAction(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let loginAuthKeyLb = UILabel(frame: CGRect(x:4, y:4, width: 120, height: 30))
+        loginAuthKeyLb.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyLb.text = "loginAuthKey :"
+        subView.addSubview(loginAuthKeyLb)
+        
+        let loginAuthKeyPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        loginAuthKeyField = UITextField(frame: CGRect(x: loginAuthKeyLb.frame.maxX, y: loginAuthKeyLb.frame.minY, width: 120, height: 30))
+        loginAuthKeyField.delegate = self
+        loginAuthKeyField.leftView = loginAuthKeyPadingView
+        loginAuthKeyField.rightView = loginAuthKeyPadingView
+        loginAuthKeyField.leftViewMode = .always
+        loginAuthKeyField.rightViewMode = .always
+        loginAuthKeyField.inputAccessoryView = toolBar
+        loginAuthKeyField.layer.masksToBounds = true
+        loginAuthKeyField.layer.borderColor = UIColor.black.cgColor
+        loginAuthKeyField.layer.borderWidth = 1.0
+        loginAuthKeyField.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyField.placeholder = "Mandatory"
+        subView.addSubview(loginAuthKeyField)
+        
+        let coinTypeLb = UILabel(frame: CGRect(x: 4, y: loginAuthKeyLb.frame.maxY+4, width: 120, height: 30))
+        coinTypeLb.font = UIFont.systemFont(ofSize: 16)
+        coinTypeLb.text = "coinType :"
+        subView.addSubview(coinTypeLb)
+        
+        let coinTypePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        coinTypeField = UITextField(frame: CGRect(x: coinTypeLb.frame.maxX, y: coinTypeLb.frame.minY, width: 120, height: 30))
+        coinTypeField.delegate = self
+        coinTypeField.leftView = coinTypePadingView
+        coinTypeField.rightView = coinTypePadingView
+        coinTypeField.leftViewMode = .always
+        coinTypeField.rightViewMode = .always
+        coinTypeField.inputAccessoryView = toolBar
+        coinTypeField.layer.masksToBounds = true
+        coinTypeField.layer.borderColor = UIColor.black.cgColor
+        coinTypeField.layer.borderWidth = 1.0
+        coinTypeField.font = UIFont.systemFont(ofSize: 16)
+        coinTypeField.placeholder = "Mandatory"
+        subView.addSubview(coinTypeField)
+        
+        let amountLb = UILabel(frame: CGRect(x: 4, y: coinTypeLb.frame.maxY+4, width: 120, height: 30))
+        amountLb.font = UIFont.systemFont(ofSize: 16)
+        amountLb.text = "amount :"
+        subView.addSubview(amountLb)
+        
+        let amountPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        amountField = UITextField(frame: CGRect(x: amountLb.frame.maxX, y: amountLb.frame.minY, width: 120, height: 30))
+        amountField.delegate = self
+        amountField.leftView = amountPadingView
+        amountField.rightView = amountPadingView
+        amountField.leftViewMode = .always
+        amountField.rightViewMode = .always
+        amountField.inputAccessoryView = toolBar
+        amountField.layer.masksToBounds = true
+        amountField.layer.borderColor = UIColor.black.cgColor
+        amountField.layer.borderWidth = 1.0
+        amountField.font = UIFont.systemFont(ofSize: 16)
+        amountField.placeholder = "Mandatory"
+        subView.addSubview(amountField)
+        
+        let feeLb = UILabel(frame: CGRect(x: 4, y: amountLb.frame.maxY+4, width: 120, height: 30))
+        feeLb.font = UIFont.systemFont(ofSize: 16)
+        feeLb.text = "fee :"
+        subView.addSubview(feeLb)
+        
+        let feePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        feeField = UITextField(frame: CGRect(x: feeLb.frame.maxX, y: feeLb.frame.minY, width: 120, height: 30))
+        feeField.delegate = self
+        feeField.leftView = feePadingView
+        feeField.rightView = feePadingView
+        feeField.leftViewMode = .always
+        feeField.rightViewMode = .always
+        feeField.inputAccessoryView = toolBar
+        feeField.layer.masksToBounds = true
+        feeField.layer.borderColor = UIColor.black.cgColor
+        feeField.layer.borderWidth = 1.0
+        feeField.font = UIFont.systemFont(ofSize: 16)
+        feeField.placeholder = "Mandatory"
+        subView.addSubview(feeField)
+        
+        let convertCoinTypeLb = UILabel(frame: CGRect(x: 4, y: feeLb.frame.maxY+4, width: 120, height: 30))
+        convertCoinTypeLb.font = UIFont.systemFont(ofSize: 16)
+        convertCoinTypeLb.text = "convertCoinType :"
+        subView.addSubview(convertCoinTypeLb)
+        
+        let convertCoinTypePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        convertCoinTypeField = UITextField(frame: CGRect(x: convertCoinTypeLb.frame.maxX, y: convertCoinTypeLb.frame.minY, width: 120, height: 30))
+        convertCoinTypeField.delegate = self
+        convertCoinTypeField.leftView = convertCoinTypePadingView
+        convertCoinTypeField.rightView = convertCoinTypePadingView
+        convertCoinTypeField.leftViewMode = .always
+        convertCoinTypeField.rightViewMode = .always
+        convertCoinTypeField.inputAccessoryView = toolBar
+        convertCoinTypeField.layer.masksToBounds = true
+        convertCoinTypeField.layer.borderColor = UIColor.black.cgColor
+        convertCoinTypeField.layer.borderWidth = 1.0
+        convertCoinTypeField.font = UIFont.systemFont(ofSize: 16)
+        convertCoinTypeField.placeholder = "Mandatory"
+        subView.addSubview(convertCoinTypeField)
+        
+        let procSpeedCdLb = UILabel(frame: CGRect(x: 4, y: convertCoinTypeLb.frame.maxY+4, width: 120, height: 30))
+        procSpeedCdLb.font = UIFont.systemFont(ofSize: 16)
+        procSpeedCdLb.text = "procSpeedCd :"
+        subView.addSubview(procSpeedCdLb)
+        
+        let procSpeedCdPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        procSpeedCdField = UITextField(frame: CGRect(x: procSpeedCdLb.frame.maxX, y: procSpeedCdLb.frame.minY, width: 120, height: 30))
+        procSpeedCdField.delegate = self
+        procSpeedCdField.leftView = procSpeedCdPadingView
+        procSpeedCdField.rightView = procSpeedCdPadingView
+        procSpeedCdField.leftViewMode = .always
+        procSpeedCdField.rightViewMode = .always
+        procSpeedCdField.inputAccessoryView = toolBar
+        procSpeedCdField.layer.masksToBounds = true
+        procSpeedCdField.layer.borderColor = UIColor.black.cgColor
+        procSpeedCdField.layer.borderWidth = 1.0
+        procSpeedCdField.font = UIFont.systemFont(ofSize: 16)
+        procSpeedCdField.placeholder = "Mandatory"
+        subView.addSubview(procSpeedCdField)
+        
+        let requestButton = UIButton(frame: CGRect(x: 10, y: procSpeedCdLb.frame.maxY+4, width: 200, height: 30))
+        requestButton.backgroundColor = UIColor.blue
+        requestButton.layer.cornerRadius = 10
+        requestButton.layer.borderWidth = 1
+        requestButton.layer.borderColor = UIColor.blue.cgColor
+        requestButton.setTitle("Request ", for: .normal)
+        requestButton.addTarget(self, action: #selector(requestAction), for: .touchUpInside)
+        subView.addSubview(requestButton)
+        
+        let responseLabel = UILabel(frame:CGRect(x: 4, y: requestButton.frame.maxY+6, width: 140, height: 30))
+        responseLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        responseLabel.text = "Response Body"
+        subView.addSubview(responseLabel)
+        
+        responsView = UITextView(frame: CGRect(x: 4, y: responseLabel.frame.maxY+2, width: subView.frame.width-8, height: subView.frame.height-responseLabel.frame.maxY-8))
+        responsView.isEditable = false
+        responsView.layer.masksToBounds = true
+        responsView.layer.cornerRadius = 5
+        responsView.layer.borderWidth = 1
+        responsView.layer.borderColor = UIColor.red.cgColor
+        subView.addSubview(responsView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.endEditing(true)
+        return true
+    }
+    
+    @objc func doneAction(_ sender: Any)  {
+        
+        self.endEditing(true)
+    }
+    
+    @objc public func requestAction () {
+        
+        self.endEditing(true)
+        
+        self.responsView.text = ""
+        
+        let fee = Int(feeField.text!)
+        let amount = Int(amountField.text!)
+        
+        var parameter:Dictionary<String, Any> = Dictionary()
+        parameter.add(key: "loginAuthKey", value: loginAuthKeyField.text!)
+        parameter.add(key: "coinType", value: coinTypeField.text!)
+        parameter.add(key: "amount", value: NSNumber(integerLiteral: amount!))
+        parameter.add(key: "fee", value: NSNumber(integerLiteral: fee!))
+        parameter.add(key: "convertCoinType", value: convertCoinTypeField.text!)
+        parameter.add(key: "procSpeedCd", value: procSpeedCdField.text!)
+        parameter.add(key: "reqDate", value: getCurrentDate())
+        
+        FantomWallet.shared.reqApi(interfaceType: .coinConvert, parameter: parameter.jsonString!)
+        { (statusCode, resData, error) in
+            
+            if resData != nil {
+                
+                let dic = Dictionary<String, Any>().jsonToDic(jsonString: resData!)!
+                
+                if statusCode == 200 {
+                    
+                    let rsltTp:String = dic["rsltTp"] as! String
+                    
+                    if rsltTp == "R1000" {
+                        self.responsView.text = dic.description
+                    }
+                    else {
+                        self.responsView.text = dic.description
+                    }
+                }
+                else {
+                    self.responsView.text = dic.description
+                }
+            }
+            else {
+                self.responsView.text = error?.localizedDescription
+            }
+        }
+    }
+    
+    func getCurrentDate() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00")
+        let currentDate = dateFormatter.string(from: Date())
+        return currentDate
+    }
+}
+
+class CoinTransferView : UIView, UITextFieldDelegate {
+    
+    var loginAuthKeyField = UITextField()
+    var coinTypeField = UITextField()
+    var receiverAddrField = UITextField()
+    var amountField = UITextField()
+    var feeField = UITextField()
+    var procSpeedCdField = UITextField()
+    var responsView = UITextView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setViews() {
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        self.addSubview(subView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action:#selector(doneAction(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let loginAuthKeyLb = UILabel(frame: CGRect(x:4, y:4, width: 120, height: 30))
+        loginAuthKeyLb.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyLb.text = "loginAuthKey :"
+        subView.addSubview(loginAuthKeyLb)
+        
+        let loginAuthKeyPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        loginAuthKeyField = UITextField(frame: CGRect(x: loginAuthKeyLb.frame.maxX, y: loginAuthKeyLb.frame.minY, width: 120, height: 30))
+        loginAuthKeyField.delegate = self
+        loginAuthKeyField.leftView = loginAuthKeyPadingView
+        loginAuthKeyField.rightView = loginAuthKeyPadingView
+        loginAuthKeyField.leftViewMode = .always
+        loginAuthKeyField.rightViewMode = .always
+        loginAuthKeyField.inputAccessoryView = toolBar
+        loginAuthKeyField.layer.masksToBounds = true
+        loginAuthKeyField.layer.borderColor = UIColor.black.cgColor
+        loginAuthKeyField.layer.borderWidth = 1.0
+        loginAuthKeyField.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyField.placeholder = "Mandatory"
+        subView.addSubview(loginAuthKeyField)
+        
+        let coinTypeLb = UILabel(frame: CGRect(x: 4, y: loginAuthKeyLb.frame.maxY+4, width: 120, height: 30))
+        coinTypeLb.font = UIFont.systemFont(ofSize: 16)
+        coinTypeLb.text = "coinType :"
+        subView.addSubview(coinTypeLb)
+        
+        let coinTypePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        coinTypeField = UITextField(frame: CGRect(x: coinTypeLb.frame.maxX, y: coinTypeLb.frame.minY, width: 120, height: 30))
+        coinTypeField.delegate = self
+        coinTypeField.leftView = coinTypePadingView
+        coinTypeField.rightView = coinTypePadingView
+        coinTypeField.leftViewMode = .always
+        coinTypeField.rightViewMode = .always
+        coinTypeField.inputAccessoryView = toolBar
+        coinTypeField.layer.masksToBounds = true
+        coinTypeField.layer.borderColor = UIColor.black.cgColor
+        coinTypeField.layer.borderWidth = 1.0
+        coinTypeField.font = UIFont.systemFont(ofSize: 16)
+        coinTypeField.placeholder = "Mandatory"
+        coinTypeField.text = "100"
+        subView.addSubview(coinTypeField)
+        
+        let receiverAddrLb = UILabel(frame: CGRect(x: 4, y: coinTypeLb.frame.maxY+4, width: 120, height: 30))
+        receiverAddrLb.font = UIFont.systemFont(ofSize: 16)
+        receiverAddrLb.text = "receiverAddr :"
+        subView.addSubview(receiverAddrLb)
+        
+        let receiverAddrPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        receiverAddrField = UITextField(frame: CGRect(x: receiverAddrLb.frame.maxX, y: receiverAddrLb.frame.minY, width: 120, height: 30))
+        receiverAddrField.delegate = self
+        receiverAddrField.leftView = receiverAddrPadingView
+        receiverAddrField.rightView = receiverAddrPadingView
+        receiverAddrField.leftViewMode = .always
+        receiverAddrField.rightViewMode = .always
+        receiverAddrField.inputAccessoryView = toolBar
+        receiverAddrField.layer.masksToBounds = true
+        receiverAddrField.layer.borderColor = UIColor.black.cgColor
+        receiverAddrField.layer.borderWidth = 1.0
+        receiverAddrField.font = UIFont.systemFont(ofSize: 16)
+        receiverAddrField.placeholder = "Mandatory"
+        receiverAddrField.text = "63880a5422fd4a8a98fba491de2119a2"
+        subView.addSubview(receiverAddrField)
+        
+        let amountLb = UILabel(frame: CGRect(x: 4, y: receiverAddrLb.frame.maxY+4, width: 120, height: 30))
+        amountLb.font = UIFont.systemFont(ofSize: 16)
+        amountLb.text = "amount :"
+        subView.addSubview(amountLb)
+        
+        let amountPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        amountField = UITextField(frame: CGRect(x: amountLb.frame.maxX, y: amountLb.frame.minY, width: 120, height: 30))
+        amountField.delegate = self
+        amountField.leftView = amountPadingView
+        amountField.rightView = amountPadingView
+        amountField.leftViewMode = .always
+        amountField.rightViewMode = .always
+        amountField.inputAccessoryView = toolBar
+        amountField.layer.masksToBounds = true
+        amountField.layer.borderColor = UIColor.black.cgColor
+        amountField.layer.borderWidth = 1.0
+        amountField.font = UIFont.systemFont(ofSize: 16)
+        amountField.placeholder = "Mandatory"
+        amountField.text = "100"
+        subView.addSubview(amountField)
+        
+        let feeLb = UILabel(frame: CGRect(x: 4, y: amountLb.frame.maxY+4, width: 120, height: 30))
+        feeLb.font = UIFont.systemFont(ofSize: 16)
+        feeLb.text = "fee :"
+        subView.addSubview(feeLb)
+        
+        let feePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        feeField = UITextField(frame: CGRect(x: feeLb.frame.maxX, y: feeLb.frame.minY, width: 120, height: 30))
+        feeField.delegate = self
+        feeField.leftView = feePadingView
+        feeField.rightView = feePadingView
+        feeField.leftViewMode = .always
+        feeField.rightViewMode = .always
+        feeField.inputAccessoryView = toolBar
+        feeField.layer.masksToBounds = true
+        feeField.layer.borderColor = UIColor.black.cgColor
+        feeField.layer.borderWidth = 1.0
+        feeField.font = UIFont.systemFont(ofSize: 16)
+        feeField.placeholder = "Mandatory"
+        feeField.text = "10"
+        subView.addSubview(feeField)
+        
+        let procSpeedCdLb = UILabel(frame: CGRect(x: 4, y: feeLb.frame.maxY+4, width: 120, height: 30))
+        procSpeedCdLb.font = UIFont.systemFont(ofSize: 16)
+        procSpeedCdLb.text = "procSpeedCd :"
+        subView.addSubview(procSpeedCdLb)
+        
+        let procSpeedCdPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        procSpeedCdField = UITextField(frame: CGRect(x: procSpeedCdLb.frame.maxX, y: procSpeedCdLb.frame.minY, width: 120, height: 30))
+        procSpeedCdField.delegate = self
+        procSpeedCdField.leftView = procSpeedCdPadingView
+        procSpeedCdField.rightView = procSpeedCdPadingView
+        procSpeedCdField.leftViewMode = .always
+        procSpeedCdField.rightViewMode = .always
+        procSpeedCdField.inputAccessoryView = toolBar
+        procSpeedCdField.layer.masksToBounds = true
+        procSpeedCdField.layer.borderColor = UIColor.black.cgColor
+        procSpeedCdField.layer.borderWidth = 1.0
+        procSpeedCdField.font = UIFont.systemFont(ofSize: 16)
+        procSpeedCdField.placeholder = "Mandatory"
+        procSpeedCdField.text = "100"
+        subView.addSubview(procSpeedCdField)
+        
+        let requestButton = UIButton(frame: CGRect(x: 10, y: procSpeedCdLb.frame.maxY+4, width: 200, height: 30))
+        requestButton.backgroundColor = UIColor.blue
+        requestButton.layer.cornerRadius = 10
+        requestButton.layer.borderWidth = 1
+        requestButton.layer.borderColor = UIColor.blue.cgColor
+        requestButton.setTitle("Request ", for: .normal)
+        requestButton.addTarget(self, action: #selector(requestAction), for: .touchUpInside)
+        subView.addSubview(requestButton)
+        
+        let responseLabel = UILabel(frame:CGRect(x: 4, y: requestButton.frame.maxY+6, width: 140, height: 30))
+        responseLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        responseLabel.text = "Response Body"
+        subView.addSubview(responseLabel)
+        
+        responsView = UITextView(frame: CGRect(x: 4, y: responseLabel.frame.maxY+2, width: subView.frame.width-8, height: subView.frame.height-responseLabel.frame.maxY-8))
+        responsView.isEditable = false
+        responsView.layer.masksToBounds = true
+        responsView.layer.cornerRadius = 5
+        responsView.layer.borderWidth = 1
+        responsView.layer.borderColor = UIColor.red.cgColor
+        subView.addSubview(responsView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.endEditing(true)
+        return true
+    }
+    
+    @objc func doneAction(_ sender: Any)  {
+        
+        self.endEditing(true)
+    }
+    
+    @objc public func requestAction () {
+        
+        self.endEditing(true)
+        
+        self.responsView.text = ""
+        
+        let fee = Int(feeField.text!)
+        let amount = Int(amountField.text!)
+        
+        var parameter:Dictionary<String, Any> = Dictionary()
+        parameter.add(key: "loginAuthKey", value: loginAuthKeyField.text!)
+        parameter.add(key: "coinType", value: coinTypeField.text!)
+        parameter.add(key: "receiverAddr", value: receiverAddrField.text!)
+        parameter.add(key: "amount", value: NSNumber(integerLiteral: amount!))
+        parameter.add(key: "fee", value: NSNumber(integerLiteral: fee!))
+        parameter.add(key: "procSpeedCd", value: procSpeedCdField.text!)
+        parameter.add(key: "reqDate", value: getCurrentDate())
+        
+        FantomWallet.shared.reqApi(interfaceType: .coinTransfer, parameter: parameter.jsonString!)
+        { (statusCode, resData, error) in
+            
+            if resData != nil {
+                
+                let dic = Dictionary<String, Any>().jsonToDic(jsonString: resData!)!
+                
+                if statusCode == 200 {
+                    
+                    let rsltTp:String = dic["rsltTp"] as! String
+                    
+                    if rsltTp == "R1000" {
+                        self.responsView.text = dic.description
+                    }
+                    else {
+                        self.responsView.text = dic.description
+                    }
+                }
+                else {
+                    self.responsView.text = dic.description
+                }
+            }
+            else {
+                self.responsView.text = error?.localizedDescription
+            }
+        }
+    }
+    
+    func getCurrentDate() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00")
+        let currentDate = dateFormatter.string(from: Date())
+        return currentDate
+    }
+}
+
+class UserWalletAddrView : UIView, UITextFieldDelegate {
+    
+    var loginAuthKeyField = UITextField()
+    var userIdField = UITextField()
+    var coinTypeField = UITextField()
+    var responsView = UITextView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setViews() {
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        self.addSubview(subView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action:#selector(doneAction(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let loginAuthKeyLb = UILabel(frame: CGRect(x:4, y:4, width: 120, height: 30))
+        loginAuthKeyLb.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyLb.text = "loginAuthKey :"
+        subView.addSubview(loginAuthKeyLb)
+        
+        let loginAuthKeyPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        loginAuthKeyField = UITextField(frame: CGRect(x: loginAuthKeyLb.frame.maxX, y: loginAuthKeyLb.frame.minY, width: 120, height: 30))
+        loginAuthKeyField.delegate = self
+        loginAuthKeyField.leftView = loginAuthKeyPadingView
+        loginAuthKeyField.rightView = loginAuthKeyPadingView
+        loginAuthKeyField.leftViewMode = .always
+        loginAuthKeyField.rightViewMode = .always
+        loginAuthKeyField.inputAccessoryView = toolBar
+        loginAuthKeyField.layer.masksToBounds = true
+        loginAuthKeyField.layer.borderColor = UIColor.black.cgColor
+        loginAuthKeyField.layer.borderWidth = 1.0
+        loginAuthKeyField.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyField.placeholder = "Mandatory"
+        subView.addSubview(loginAuthKeyField)
+        
+        let userIdLb = UILabel(frame: CGRect(x:4, y:loginAuthKeyLb.frame.maxY+4, width: 120, height: 30))
+        userIdLb.font = UIFont.systemFont(ofSize: 16)
+        userIdLb.text = "userId :"
+        subView.addSubview(userIdLb)
+        
+        let userIdPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        userIdField = UITextField(frame: CGRect(x: userIdLb.frame.maxX, y: userIdLb.frame.minY, width: 120, height: 30))
+        userIdField.delegate = self
+        userIdField.leftView = userIdPadingView
+        userIdField.rightView = userIdPadingView
+        userIdField.leftViewMode = .always
+        userIdField.rightViewMode = .always
+        userIdField.inputAccessoryView = toolBar
+        userIdField.layer.masksToBounds = true
+        userIdField.layer.borderColor = UIColor.black.cgColor
+        userIdField.layer.borderWidth = 1.0
+        userIdField.font = UIFont.systemFont(ofSize: 16)
+        userIdField.placeholder = "Mandatory"
+        subView.addSubview(userIdField)
+        
+        let coinTypeLb = UILabel(frame: CGRect(x: 4, y: userIdLb.frame.maxY+4, width: 120, height: 30))
+        coinTypeLb.font = UIFont.systemFont(ofSize: 16)
+        coinTypeLb.text = "coinType :"
+        subView.addSubview(coinTypeLb)
+        
+        let coinTypePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        coinTypeField = UITextField(frame: CGRect(x: coinTypeLb.frame.maxX, y: coinTypeLb.frame.minY, width: 120, height: 30))
+        coinTypeField.delegate = self
+        coinTypeField.leftView = coinTypePadingView
+        coinTypeField.rightView = coinTypePadingView
+        coinTypeField.leftViewMode = .always
+        coinTypeField.rightViewMode = .always
+        coinTypeField.inputAccessoryView = toolBar
+        coinTypeField.layer.masksToBounds = true
+        coinTypeField.layer.borderColor = UIColor.black.cgColor
+        coinTypeField.layer.borderWidth = 1.0
+        coinTypeField.font = UIFont.systemFont(ofSize: 16)
+        coinTypeField.placeholder = "Mandatory"
+        subView.addSubview(coinTypeField)
+        
+        let requestButton = UIButton(frame: CGRect(x: 10, y: coinTypeLb.frame.maxY+4, width: 200, height: 30))
+        requestButton.backgroundColor = UIColor.blue
+        requestButton.layer.cornerRadius = 10
+        requestButton.layer.borderWidth = 1
+        requestButton.layer.borderColor = UIColor.blue.cgColor
+        requestButton.setTitle("Request ", for: .normal)
+        requestButton.addTarget(self, action: #selector(requestAction), for: .touchUpInside)
+        subView.addSubview(requestButton)
+        
+        let responseLabel = UILabel(frame:CGRect(x: 4, y: requestButton.frame.maxY+6, width: 140, height: 30))
+        responseLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        responseLabel.text = "Response Body"
+        subView.addSubview(responseLabel)
+        
+        responsView = UITextView(frame: CGRect(x: 4, y: responseLabel.frame.maxY+2, width: subView.frame.width-8, height: subView.frame.height-responseLabel.frame.maxY-8))
+        responsView.isEditable = false
+        responsView.layer.masksToBounds = true
+        responsView.layer.cornerRadius = 5
+        responsView.layer.borderWidth = 1
+        responsView.layer.borderColor = UIColor.red.cgColor
+        subView.addSubview(responsView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.endEditing(true)
+        return true
+    }
+    
+    @objc func doneAction(_ sender: Any)  {
+        
+        self.endEditing(true)
+    }
+    
+    @objc public func requestAction () {
+        
+        self.endEditing(true)
+        
+        self.responsView.text = ""
+        
+        var parameter:Dictionary<String, Any> = Dictionary()
+        parameter.add(key: "loginAuthKey", value: loginAuthKeyField.text!)
+        parameter.add(key: "coinType", value: coinTypeField.text!)
+        parameter.add(key: "reqDate", value: getCurrentDate())
+        
+        FantomWallet.shared.reqApi(interfaceType: .userWalletAddr, parameter: parameter.jsonString!)
+        { (statusCode, resData, error) in
+            
+            if resData != nil {
+                
+                let dic = Dictionary<String, Any>().jsonToDic(jsonString: resData!)!
+                
+                if statusCode == 200 {
+                    
+                    let rsltTp:String = dic["rsltTp"] as! String
+                    
+                    if rsltTp == "R1000" {
+                        self.responsView.text = dic.description
+                    }
+                    else {
+                        self.responsView.text = dic.description
+                    }
+                }
+                else {
+                    self.responsView.text = dic.description
+                }
+            }
+            else {
+                self.responsView.text = error?.localizedDescription
+            }
+        }
+    }
+    
+    func getCurrentDate() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00")
+        let currentDate = dateFormatter.string(from: Date())
+        return currentDate
+    }
+}
+
+class UserHoldingView : UIView, UITextFieldDelegate {
+    
+    var loginAuthKeyField = UITextField()
+    var userIdField = UITextField()
+    var coinTypeField = UITextField()
+    var responsView = UITextView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setViews() {
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        self.addSubview(subView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action:#selector(doneAction(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let loginAuthKeyLb = UILabel(frame: CGRect(x:4, y:4, width: 120, height: 30))
+        loginAuthKeyLb.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyLb.text = "loginAuthKey :"
+        subView.addSubview(loginAuthKeyLb)
+        
+        let loginAuthKeyPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        loginAuthKeyField = UITextField(frame: CGRect(x: loginAuthKeyLb.frame.maxX, y: loginAuthKeyLb.frame.minY, width: 120, height: 30))
+        loginAuthKeyField.delegate = self
+        loginAuthKeyField.leftView = loginAuthKeyPadingView
+        loginAuthKeyField.rightView = loginAuthKeyPadingView
+        loginAuthKeyField.leftViewMode = .always
+        loginAuthKeyField.rightViewMode = .always
+        loginAuthKeyField.inputAccessoryView = toolBar
+        loginAuthKeyField.layer.masksToBounds = true
+        loginAuthKeyField.layer.borderColor = UIColor.black.cgColor
+        loginAuthKeyField.layer.borderWidth = 1.0
+        loginAuthKeyField.font = UIFont.systemFont(ofSize: 16)
+        loginAuthKeyField.placeholder = "Mandatory"
+        subView.addSubview(loginAuthKeyField)
+        
+        let userIdLb = UILabel(frame: CGRect(x:4, y:loginAuthKeyLb.frame.maxY+4, width: 120, height: 30))
+        userIdLb.font = UIFont.systemFont(ofSize: 16)
+        userIdLb.text = "userId :"
+        subView.addSubview(userIdLb)
+        
+        let userIdPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        userIdField = UITextField(frame: CGRect(x: userIdLb.frame.maxX, y: userIdLb.frame.minY, width: 120, height: 30))
+        userIdField.delegate = self
+        userIdField.leftView = userIdPadingView
+        userIdField.rightView = userIdPadingView
+        userIdField.leftViewMode = .always
+        userIdField.rightViewMode = .always
+        userIdField.inputAccessoryView = toolBar
+        userIdField.layer.masksToBounds = true
+        userIdField.layer.borderColor = UIColor.black.cgColor
+        userIdField.layer.borderWidth = 1.0
+        userIdField.font = UIFont.systemFont(ofSize: 16)
+        userIdField.placeholder = "Mandatory"
+        subView.addSubview(userIdField)
+        
+        let coinTypeLb = UILabel(frame: CGRect(x: 4, y: userIdLb.frame.maxY+4, width: 120, height: 30))
+        coinTypeLb.font = UIFont.systemFont(ofSize: 16)
+        coinTypeLb.text = "coinType :"
+        subView.addSubview(coinTypeLb)
+        
+        let coinTypePadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        coinTypeField = UITextField(frame: CGRect(x: coinTypeLb.frame.maxX, y: coinTypeLb.frame.minY, width: 120, height: 30))
+        coinTypeField.delegate = self
+        coinTypeField.leftView = coinTypePadingView
+        coinTypeField.rightView = coinTypePadingView
+        coinTypeField.leftViewMode = .always
+        coinTypeField.rightViewMode = .always
+        coinTypeField.inputAccessoryView = toolBar
+        coinTypeField.layer.masksToBounds = true
+        coinTypeField.layer.borderColor = UIColor.black.cgColor
+        coinTypeField.layer.borderWidth = 1.0
+        coinTypeField.font = UIFont.systemFont(ofSize: 16)
+        coinTypeField.placeholder = "Mandatory"
+        subView.addSubview(coinTypeField)
+        
+        let requestButton = UIButton(frame: CGRect(x: 10, y: coinTypeLb.frame.maxY+4, width: 200, height: 30))
+        requestButton.backgroundColor = UIColor.blue
+        requestButton.layer.cornerRadius = 10
+        requestButton.layer.borderWidth = 1
+        requestButton.layer.borderColor = UIColor.blue.cgColor
+        requestButton.setTitle("Request ", for: .normal)
+        requestButton.addTarget(self, action: #selector(requestAction), for: .touchUpInside)
+        subView.addSubview(requestButton)
+        
+        let responseLabel = UILabel(frame:CGRect(x: 4, y: requestButton.frame.maxY+6, width: 140, height: 30))
+        responseLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        responseLabel.text = "Response Body"
+        subView.addSubview(responseLabel)
+        
+        responsView = UITextView(frame: CGRect(x: 4, y: responseLabel.frame.maxY+2, width: subView.frame.width-8, height: subView.frame.height-responseLabel.frame.maxY-8))
+        responsView.isEditable = false
+        responsView.layer.masksToBounds = true
+        responsView.layer.cornerRadius = 5
+        responsView.layer.borderWidth = 1
+        responsView.layer.borderColor = UIColor.red.cgColor
+        subView.addSubview(responsView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.endEditing(true)
+        return true
+    }
+    
+    @objc func doneAction(_ sender: Any)  {
+        
+        self.endEditing(true)
+    }
+    
+    @objc public func requestAction () {
+        
+        self.endEditing(true)
+        
+        self.responsView.text = ""
+        
+        var parameter:Dictionary<String, Any> = Dictionary()
+        parameter.add(key: "loginAuthKey", value: loginAuthKeyField.text!)
+        parameter.add(key: "coinType", value: coinTypeField.text!)
+        parameter.add(key: "reqDate", value: getCurrentDate())
+        
+        FantomWallet.shared.reqApi(interfaceType: .userHolding, parameter: parameter.jsonString!)
+        { (statusCode, resData, error) in
+            
+            if resData != nil {
+                
+                let dic = Dictionary<String, Any>().jsonToDic(jsonString: resData!)!
+                
+                if statusCode == 200 {
+                    
+                    let rsltTp:String = dic["rsltTp"] as! String
+                    
+                    if rsltTp == "R1000" {
+                        self.responsView.text = dic.description
+                    }
+                    else {
+                        self.responsView.text = dic.description
+                    }
+                }
+                else {
+                    self.responsView.text = dic.description
+                }
+            }
+            else {
+                self.responsView.text = error?.localizedDescription
+            }
+        }
+    }
+    
+    func getCurrentDate() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00")
+        let currentDate = dateFormatter.string(from: Date())
+        return currentDate
+    }
+    
+}
+
+class UserLoginView : UIView, UITextFieldDelegate {
+    
+    var userIdField = UITextField()
+    var userPasswordField = UITextField()
+    var responsView = UITextView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setViews() {
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        self.addSubview(subView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action:#selector(doneAction(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let userIdLb = UILabel(frame: CGRect(x:4, y:4, width: 120, height: 30))
+        userIdLb.font = UIFont.systemFont(ofSize: 16)
+        userIdLb.text = "userId :"
+        subView.addSubview(userIdLb)
+        
+        let userIdPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        userIdField = UITextField(frame: CGRect(x: userIdLb.frame.maxX, y: userIdLb.frame.minY, width: 120, height: 30))
+        userIdField.delegate = self
+        userIdField.leftView = userIdPadingView
+        userIdField.rightView = userIdPadingView
+        userIdField.leftViewMode = .always
+        userIdField.rightViewMode = .always
+        userIdField.inputAccessoryView = toolBar
+        userIdField.layer.masksToBounds = true
+        userIdField.layer.borderColor = UIColor.black.cgColor
+        userIdField.layer.borderWidth = 1.0
+        userIdField.font = UIFont.systemFont(ofSize: 16)
+        userIdField.placeholder = "Mandatory"
+        subView.addSubview(userIdField)
+        
+        let userPwLb = UILabel(frame: CGRect(x: 4, y: userIdLb.frame.maxY+4, width: 120, height: 30))
+        userPwLb.font = UIFont.systemFont(ofSize: 16)
+        userPwLb.text = "userPw :"
+        subView.addSubview(userPwLb)
+        
+        let userPwPadingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 30))
+        userPasswordField = UITextField(frame: CGRect(x: userPwLb.frame.maxX, y: userPwLb.frame.minY, width: 120, height: 30))
+        userPasswordField.delegate = self
+        userPasswordField.leftView = userPwPadingView
+        userPasswordField.rightView = userPwPadingView
+        userPasswordField.leftViewMode = .always
+        userPasswordField.rightViewMode = .always
+        userPasswordField.inputAccessoryView = toolBar
+        userPasswordField.layer.masksToBounds = true
+        userPasswordField.layer.borderColor = UIColor.black.cgColor
+        userPasswordField.layer.borderWidth = 1.0
+        userPasswordField.font = UIFont.systemFont(ofSize: 16)
+        userPasswordField.placeholder = "Mandatory"
+        subView.addSubview(userPasswordField)
+        
+        let requestButton = UIButton(frame: CGRect(x: 10, y: userPwLb.frame.maxY+4, width: 200, height: 30))
+        requestButton.backgroundColor = UIColor.blue
+        requestButton.layer.cornerRadius = 10
+        requestButton.layer.borderWidth = 1
+        requestButton.layer.borderColor = UIColor.blue.cgColor
+        requestButton.setTitle("Request ", for: .normal)
+        requestButton.addTarget(self, action: #selector(requestAction), for: .touchUpInside)
+        subView.addSubview(requestButton)
+        
+        let responseLabel = UILabel(frame:CGRect(x: 4, y: requestButton.frame.maxY+6, width: 140, height: 30))
+        responseLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        responseLabel.text = "Response Body"
+        subView.addSubview(responseLabel)
+        
+        responsView = UITextView(frame: CGRect(x: 4, y: responseLabel.frame.maxY+2, width: subView.frame.width-8, height: subView.frame.height-responseLabel.frame.maxY-8))
+        responsView.isEditable = false
+        responsView.layer.masksToBounds = true
+        responsView.layer.cornerRadius = 5
+        responsView.layer.borderWidth = 1
+        responsView.layer.borderColor = UIColor.red.cgColor
+        subView.addSubview(responsView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.endEditing(true)
+        return true
+    }
+    
+    @objc func doneAction(_ sender: Any)  {
+        
+        self.endEditing(true)
+    }
+    
+    @objc public func requestAction () {
+        
+        self.endEditing(true)
+        
+        self.responsView.text = ""
+        
+        var password = userPasswordField.text!
+        var cryptoPassword = ccSha256(data: password.data(using: .utf8)!)
+
+        var parameter:Dictionary<String, Any> = Dictionary()
+        parameter.add(key: "userId", value: userIdField.text!)
+        parameter.add(key: "userPw", value: cryptoPassword.map { String(format: "%02hhx", $0) }.joined())
+        parameter.add(key: "reqDate", value: getCurrentDate())
+
+        FantomWallet.shared.reqApi(interfaceType: .userLogin, parameter: parameter.jsonString!)
+        { (statusCode, resData, error) in
+
+            if resData != nil {
+
+                let dic = Dictionary<String, Any>().jsonToDic(jsonString: resData!)!
+
+                if statusCode == 200 {
+
+                    let rsltTp:String = dic["rsltTp"] as! String
+
+                    if rsltTp == "R1000" {
+                        self.responsView.text = dic.description
+                    }
+                    else {
+                        self.responsView.text = dic.description
+                    }
+                }
+                else {
+                    self.responsView.text = dic.description
+                }
+            }
+            else {
+                self.responsView.text = error?.localizedDescription
+            }
+        }
+    }
+    
+    func getCurrentDate() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00")
+        let currentDate = dateFormatter.string(from: Date())
+        return currentDate
+    }
+    
+    func ccSha256(data: Data) -> Data {
+        var digest = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+        
+        _ = digest.withUnsafeMutableBytes { (digestBytes) in
+            data.withUnsafeBytes { (stringBytes) in
+                CC_SHA256(stringBytes, CC_LONG(data.count), digestBytes)
+            }
+        }
+        return digest
+    }
+}
+
+
 class FranchiseListView : UIView, UITextFieldDelegate {
     
     var pageNumField = UITextField()
